@@ -62,7 +62,7 @@ def test_matmul_rectangular():
     left = Matrix([[1, 2, 3], [4, 5, 6]])
     right = Matrix([[7, 8], [9, 10], [11, 12]])
     result = left.matmul(right)
-    assert result.data == [[58, 64], [139, 154]]
+    assert [list(row) for row in result.data] == [[58, 64], [139, 154]]
 
 
 def test_matvec_rectangular():
@@ -73,10 +73,10 @@ def test_matvec_rectangular():
 
 
 def test_vector_repr():
-    vector = Vector([1, 2, 3])
-    assert repr(vector) == "Vector([1, 2, 3])"
+    vector = Vector([1.0, 2.0, 3.0])
+    assert repr(vector) == "Vector([1.0, 2.0, 3.0])"
 
 
 def test_matrix_repr():
-    matrix = Matrix([[1, 2], [3, 4]])
-    assert repr(matrix) == "Matrix([[1, 2], [3, 4]])"
+    matrix = Matrix([[1.0, 2.0], [3.0, 4.0]])
+    assert repr(matrix) == "Matrix([[1.0, 2.0], [3.0, 4.0]])"
