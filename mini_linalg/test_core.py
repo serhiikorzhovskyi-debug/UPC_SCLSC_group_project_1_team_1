@@ -34,6 +34,54 @@ def test_matmul_dimension_error():
         Matrix([[1, 2]]).matmul(Matrix([[1, 2]]))
 
 
+def test_matrix_unequal_row_lengths():
+    with pytest.raises(ValueError):
+        Matrix([[1, 2], [3]])
+
+
+def test_matrix_empty():
+    with pytest.raises(ValueError):
+        Matrix([])
+
+
+def test_matvec_dimension_error_extra_elements():
+    matrix = Matrix([[1, 2], [3, 4]])
+    vector = Vector([1, 2, 3])
+    with pytest.raises(ValueError):
+        matrix.matvec(vector)
+
+
+def test_matmul_dimension_error_extra_rows():
+    left = Matrix([[1, 2], [3, 4]])
+    right = Matrix([[1, 2], [3, 4], [5, 6]])
+    with pytest.raises(ValueError):
+        left.matmul(right)
+
+
+def test_matmul_rectangular():
+    left = Matrix([[1, 2, 3], [4, 5, 6]])
+    right = Matrix([[7, 8], [9, 10], [11, 12]])
+    result = left.matmul(right)
+    assert [list(row) for row in result.data] == [[58, 64], [139, 154]]
+
+
+def test_matvec_rectangular():
+    matrix = Matrix([[1, 2, 3], [4, 5, 6]])
+    vector = Vector([2, 3, 4])
+    result = matrix.matvec(vector)
+    assert list(result.data) == [20, 47]
+
+
+def test_vector_repr():
+    vector = Vector([1, 2, 3])
+    assert repr(vector) == "Vector([1.0, 2.0, 3.0])"
+
+
+def test_matrix_repr():
+    matrix = Matrix([[1, 2], [3, 4]])
+    assert repr(matrix) == "Matrix([[1.0, 2.0], [3.0, 4.0]])"
+
+
 def test_batch_matvec():
     matrices = [Matrix([[1, 2]]), Matrix([[3, 4], [5, 6]])]
     vectors = [Vector([2, 3]), Vector([1, 2])]
