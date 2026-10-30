@@ -42,3 +42,25 @@ class Matrix:
         values = self.data @ other.data
 
         return Matrix(values)
+
+    @staticmethod
+    def batch_matvec(
+        matrices: list["Matrix"], vectors: list[Vector]
+    ) -> list[Vector]:
+        if len(matrices) != len(vectors):
+            raise ValueError("Batch sizes must match")
+        return [
+            matrix.matvec(vector)
+            for matrix, vector in zip(matrices, vectors)
+        ]
+
+    @staticmethod
+    def batch_matmul(
+        left_matrices: list["Matrix"], right_matrices: list["Matrix"]
+    ) -> list["Matrix"]:
+        if len(left_matrices) != len(right_matrices):
+            raise ValueError("Batch sizes must match")
+        return [
+            left.matmul(right)
+            for left, right in zip(left_matrices, right_matrices)
+        ]
