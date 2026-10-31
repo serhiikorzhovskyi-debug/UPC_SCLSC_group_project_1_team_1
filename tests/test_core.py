@@ -1,6 +1,6 @@
 import pytest
 
-from mini_linalg.core import Matrix, Vector
+from mini_linalg import Matrix, Vector
 
 
 def test_vector_creation():
